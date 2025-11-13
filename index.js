@@ -3,50 +3,43 @@ const app = express();
 
 app.use(express.json());
 
-// -----------------------------
-// TEST ruta
-// -----------------------------
+// Test ruta
 app.get("/", (req, res) => {
     res.send({ message: "SEF API radi!" });
 });
 
-// -----------------------------
-// CALLBACK – izlazne fakture
-// -----------------------------
+// SEF – izlazne fakture
 app.post("/sef-out", (req, res) => {
-    console.log("📨 SEF OUTGOING callback:");
+    console.log("🟧 SEF OUTGOING NOTIFIKACIJA:");
     console.log(JSON.stringify(req.body, null, 2));
 
-    // SEF očekuje odgovor 200 + "OK"
     res.status(200).send("OK");
 });
 
-// -----------------------------
-// CALLBACK – ulazne fakture
-// -----------------------------
+// SEF – ulazne fakture
 app.post("/sef-in", (req, res) => {
-    console.log("📨 SEF INCOMING callback:");
+    console.log("🟩 SEF INCOMING NOTIFIKACIJA:");
     console.log(JSON.stringify(req.body, null, 2));
 
     res.status(200).send("OK");
 });
 
-// -----------------------------
-// TEST – da ti simuliramo SEF POST bez SEF-a
-// -----------------------------
+// TEST OUT – za ručno testiranje
 app.post("/test-out", (req, res) => {
-    console.log("🔥 TEST OUT simulacija:");
+    console.log("🟦 TEST OUT REQUEST:");
     console.log(JSON.stringify(req.body, null, 2));
-    res.send("Primljeno");
+
+    res.status(200).send("Primljeno OUT");
 });
 
+// TEST IN – za ručno testiranje
 app.post("/test-in", (req, res) => {
-    console.log("🔥 TEST IN simulacija:");
+    console.log("🟦 TEST IN REQUEST:");
     console.log(JSON.stringify(req.body, null, 2));
-    res.send("Primljeno");
+
+    res.status(200).send("Primljeno");
 });
 
-// -----------------------------
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("Server radi na portu " + port);
