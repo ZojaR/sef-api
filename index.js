@@ -1,27 +1,29 @@
 const express = require("express");
 const app = express();
 
-// Omogućava API-ju da prima JSON iz SEF-a
 app.use(express.json());
 
-// Test ruta (GET)
+// Test ruta – radi
 app.get("/", (req, res) => {
   res.send({ message: "SEF API radi!" });
 });
 
-// 🟢 Ruta za notifikacije izlaznih faktura (OUT)
+// 🔵 SEF OUT – obaveštenja o IZLAZNIM fakturama
 app.post("/sef-out", (req, res) => {
-  console.log("📤 SEF OUTGOING NOTIFIKACIJA:", req.body);
+  console.log("📤 SEF OUTGOING NOTIFIKACIJA:");
+  console.log(JSON.stringify(req.body, null, 2));
+
   res.status(200).send("OK");
 });
 
-// 🟢 Ruta za notifikacije ulaznih faktura (IN)
+// 🔵 SEF IN – obaveštenja o ULAZNIM fakturama
 app.post("/sef-in", (req, res) => {
-  console.log("📥 SEF INCOMING NOTIFIKACIJA:", req.body);
+  console.log("📥 SEF INCOMING NOTIFIKACIJA:");
+  console.log(JSON.stringify(req.body, null, 2));
+
   res.status(200).send("OK");
 });
 
-// Pokretanje servera
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log("Server radi na portu " + port);
