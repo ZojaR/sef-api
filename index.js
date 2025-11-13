@@ -3,24 +3,22 @@ const app = express();
 
 app.use(express.json());
 
-// Test ruta – radi
+// Test ruta
 app.get("/", (req, res) => {
   res.send({ message: "SEF API radi!" });
 });
 
-// 🔵 SEF OUT – obaveštenja o IZLAZNIM fakturama
+// SEF – izlazne fakture
 app.post("/sef-out", (req, res) => {
   console.log("📤 SEF OUTGOING NOTIFIKACIJA:");
   console.log(JSON.stringify(req.body, null, 2));
-
   res.status(200).send("OK");
 });
 
-// 🔵 SEF IN – obaveštenja o ULAZNIM fakturama
+// SEF – ulazne fakture
 app.post("/sef-in", (req, res) => {
   console.log("📥 SEF INCOMING NOTIFIKACIJA:");
   console.log(JSON.stringify(req.body, null, 2));
-
   res.status(200).send("OK");
 });
 
